@@ -1,10 +1,10 @@
-package com.totemcrew.directorservice;
+package com.totemcrew;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DirectorServiceApplicationTests {
+class PrincipalServiceApplicationTests {
 
     @Test
     void contextLoads() {
