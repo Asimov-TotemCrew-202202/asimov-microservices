@@ -1,6 +1,7 @@
 package com.totemcrew.directors.domain.model.entity;
 
 import com.totemcrew.shared.domain.model.AuditModel;
+import com.totemcrew.statements.domain.model.entity.Statement;
 import lombok.*;
 
 import javax.persistence.*;

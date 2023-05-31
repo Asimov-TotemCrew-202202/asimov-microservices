@@ -1,5 +1,6 @@
-package com.totemcrew.directors.domain.model.entity;
+package com.totemcrew.statements.domain.model.entity;
 
+import com.totemcrew.directors.domain.model.entity.Principal;
 import com.totemcrew.shared.domain.model.AuditModel;
 import lombok.*;
 import org.hibernate.annotations.Type;
