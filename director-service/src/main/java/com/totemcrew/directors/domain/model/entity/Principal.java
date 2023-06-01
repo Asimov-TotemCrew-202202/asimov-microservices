@@ -2,6 +2,7 @@ package com.totemcrew.directors.domain.model.entity;
 
 import com.totemcrew.shared.domain.model.AuditModel;
 import com.totemcrew.statements.domain.model.entity.Statement;
+import com.totemcrew.teachers.domain.model.entity.Teacher;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,10 +34,13 @@ public class Principal extends AuditModel {
 
     private double salary;
 
-    private Long principalId;
+    private Long userId;
 
     //relation with announcements
     @OneToMany(mappedBy = "principal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Statement> statements;
+
+    @OneToMany(mappedBy = "principal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Teacher> teachers;
 
 }

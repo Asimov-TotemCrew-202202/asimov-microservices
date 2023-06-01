@@ -6,8 +6,6 @@ import com.totemcrew.directors.domain.service.PrincipalService;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.shared.mapping.EnhancedModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,7 +69,7 @@ public class PrincipalServiceImpl implements PrincipalService {
                         data.withSpecialty(director.getSpecialty())
                                 .withExperienceYears(director.getExperienceYears())
                                 .withSalary(director.getSalary())
-                                .withPrincipalId(director.getPrincipalId()))
+                                .withUserId(director.getUserId()))
         ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, directorId));
     }
 

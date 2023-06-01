@@ -21,5 +21,5 @@ public class UpdatePrincipalResource {
 
     private double salary;
 
-    private Long principalId;
+    private Long userId;
 }
