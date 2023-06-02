@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -92,8 +93,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void linkCompetencesToCourse(Long courseId, List<Long> competenceIds) {
+        List<Long> ids = new ArrayList<>();
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException("Course not found with ID: " + courseId));
+        competenceIds.forEach(com -> {
+            Competence competence = competenceRepository.findById(com)
+                    .orElseThrow(() -> new EntityNotFoundException("Competence not found with ID: " + com));
+
+        });
         List<Competence> competences = competenceRepository.findAllById(competenceIds);
         course.setCompetences(competences);
         courseRepository.save(course);

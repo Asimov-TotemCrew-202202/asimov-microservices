@@ -39,7 +39,9 @@ public class CoursesController {
     @PostMapping("courses")
     public CourseResource createCourse(@RequestBody CreateCourseResource request) {
 
-        return mapper.toResource(courseService.create(mapper.toModel(request)));
+        var course = courseService.create(mapper.toModel(request));
+        courseService.linkCompetencesToCourse(course.getId(), request.getCompetenceIds());
+        return mapper.toResource(course);
     }
 
     @PutMapping("courses/{courseId}")
@@ -55,9 +57,5 @@ public class CoursesController {
     @GetMapping("courses/{id}/competences")
     public List<CompetenceResource> getAllCoursesByTeacherId(@PathVariable("id") Long id) {
         return competenceMapper.modelListToResource(courseService.getAllCompetences_Course(id));
-    }
-    @PostMapping("courses/{id}/competences")
-    public void linkCoursesToTeacher(@PathVariable("id") Long id, @RequestBody List<Long> competenceIds) {
-        courseService.linkCompetencesToCourse(id, competenceIds);
     }
 }
