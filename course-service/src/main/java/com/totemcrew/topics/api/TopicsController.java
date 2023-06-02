@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("api/v1")
 public class TopicsController {
 
     private final TopicService topicService;
@@ -23,23 +23,23 @@ public class TopicsController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/courses/{courseId}/topics")
+    @GetMapping("courses/{courseId}/topics")
     public List<TopicResource> getAllByCourseID(@PathVariable Long courseId) {
         return mapper.modelListToResource(topicService.getAllByCourseId(courseId));
     }
 
-    @PostMapping("/courses/{courseId}/topics")
+    @PostMapping("courses/{courseId}/topics")
     public TopicResource createTopic(@RequestBody CreateTopicResource request, @PathVariable Long courseId) {
         return mapper.toResource(topicService.create(mapper.toModel(request),courseId));
     }
 
 
-    @PutMapping("/topics/{topicId}")
+    @PutMapping("topics/{topicId}")
     public TopicResource updateTopic(@PathVariable Long topicId, @RequestBody UpdateTopicResource request) {
         return mapper.toResource(topicService.update(topicId, mapper.toModel(request)));
     }
 
-    @DeleteMapping("/topics/{topicId}")
+    @DeleteMapping("topics/{topicId}")
     public ResponseEntity<?> deleteTopic(@PathVariable Long topicId) {
         return topicService.delete(topicId);
     }

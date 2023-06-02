@@ -12,6 +12,4 @@ public class CourseResource {
     private String name;
 
     private String description;
-
-    private Boolean state;
 }

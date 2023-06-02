@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("api/v1")
 public class CoursesController {
 
     @Autowired
@@ -26,37 +26,37 @@ public class CoursesController {
     @Autowired
     CompetenceMapper competenceMapper;
 
-    @GetMapping("/courses")
+    @GetMapping("courses")
     public List<CourseResource> getAllCourses() {
         return mapper.modelListToResource(courseService.getAll());
     }
 
-    @GetMapping("/courses/{courseId}")
+    @GetMapping("courses/{courseId}")
     public CourseResource getCourseById(@PathVariable("courseId") Long courseId) {
         return mapper.toResource(courseService.getById(courseId));
     }
 
-    @PostMapping("/courses")
+    @PostMapping("courses")
     public CourseResource createCourse(@RequestBody CreateCourseResource request) {
 
         return mapper.toResource(courseService.create(mapper.toModel(request)));
     }
 
-    @PutMapping("/{courseId}")
+    @PutMapping("courses/{courseId}")
     public CourseResource updateCourse(@PathVariable Long courseId, @RequestBody UpdateCourseResource request) {
         return mapper.toResource(courseService.update(courseId, mapper.toModel(request)));
     }
 
-    @DeleteMapping("/{courseId}")
+    @DeleteMapping("courses/{courseId}")
     public ResponseEntity<?> deleteCourse(@PathVariable Long courseId) {
         return courseService.delete(courseId);
     }
 
-    @GetMapping("/course/{id}/competences")
+    @GetMapping("courses/{id}/competences")
     public List<CompetenceResource> getAllCoursesByTeacherId(@PathVariable("id") Long id) {
         return competenceMapper.modelListToResource(courseService.getAllCompetences_Course(id));
     }
-    @PostMapping("/courses/{id}/competences")
+    @PostMapping("courses/{id}/competences")
     public void linkCoursesToTeacher(@PathVariable("id") Long id, @RequestBody List<Long> competenceIds) {
         courseService.linkCompetencesToCourse(id, competenceIds);
     }

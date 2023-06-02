@@ -36,8 +36,6 @@ public class Course extends AuditModel {
     @Type(type = "org.hibernate.type.TextType")
     private String description;
 
-    private Boolean state;
-
     @OneToMany( mappedBy = "course", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     List<Topic> topics;
 

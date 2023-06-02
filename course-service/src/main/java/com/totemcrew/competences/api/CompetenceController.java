@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("api/v1")
 public class CompetenceController {
     @Autowired
     CompetenceService competenceService;
@@ -22,22 +22,22 @@ public class CompetenceController {
     @Autowired
     CompetenceMapper mapper;
 
-    @GetMapping("/competences")
+    @GetMapping("competences")
     public List<CompetenceResource> getAllCompetences() {
         return mapper.modelListToResource(competenceService.getAll());
     }
 
-    @PostMapping("/competences")
+    @PostMapping("competences")
     public CompetenceResource createCompetence(@RequestBody CreateCompetenceResource request) {
 
         return mapper.toResource(competenceService.create(mapper.toModel(request)));
     }
-    @PutMapping("/competences/{competenceId}")
+    @PutMapping("competences/{competenceId}")
     public CompetenceResource updateCompetence(@PathVariable Long teacherId, @RequestBody UpdateCompetenceResource request) {
         return mapper.toResource(competenceService.update(teacherId, mapper.toModel(request)));
     }
 
-    @DeleteMapping("/competences/{competenceId}")
+    @DeleteMapping("competences/{competenceId}")
     public ResponseEntity<?> deleteCompetence(@PathVariable Long teacherId) {
         return competenceService.delete(teacherId);
     }

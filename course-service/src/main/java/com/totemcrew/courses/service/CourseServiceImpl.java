@@ -73,8 +73,7 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(courseId).map(course ->
                 courseRepository.save(
                         course.withName(request.getName())
-                                .withDescription(request.getDescription())
-                                .withState(request.getState()))
+                                .withDescription(request.getDescription()))
         ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, courseId));
     }
 

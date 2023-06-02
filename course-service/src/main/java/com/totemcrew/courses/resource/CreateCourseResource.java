@@ -19,6 +19,4 @@ public class CreateCourseResource {
     @NotNull
     @NotBlank
     private String description;
-
-    private Boolean state;
 }
