@@ -1,5 +1,6 @@
 package com.totemcrew.directors.domain.model.entity;
 
+import com.totemcrew.programschools.domain.model.entity.ProgramSchool;
 import com.totemcrew.shared.domain.model.AuditModel;
 import com.totemcrew.statements.domain.model.entity.Statement;
 import com.totemcrew.teachers.domain.model.entity.Teacher;
@@ -42,5 +43,8 @@ public class Principal extends AuditModel {
 
     @OneToMany(mappedBy = "principal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Teacher> teachers;
+
+    @OneToMany(mappedBy = "principal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<ProgramSchool> programSchools;
 
 }
