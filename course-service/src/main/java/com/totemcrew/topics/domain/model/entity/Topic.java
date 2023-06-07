@@ -1,6 +1,7 @@
 package com.totemcrew.topics.domain.model.entity;
 
 import com.totemcrew.courses.domain.model.entity.Course;
+import com.totemcrew.exams.domain.model.entity.Exam;
 import com.totemcrew.shared.domain.model.AuditModel;
 import lombok.*;
 
@@ -41,4 +42,7 @@ public class Topic extends AuditModel {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
+
+    @OneToOne(mappedBy = "topic")
+    private Exam exam;
 }
