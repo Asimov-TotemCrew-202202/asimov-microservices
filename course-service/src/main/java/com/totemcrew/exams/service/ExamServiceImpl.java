@@ -4,11 +4,14 @@ import com.totemcrew.exams.domain.model.entity.Exam;
 import com.totemcrew.exams.domain.persistence.ExamRepository;
 import com.totemcrew.exams.domain.service.ExamService;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
+import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.topics.domain.persistence.TopicRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Set;
 
 @Service
 public class ExamServiceImpl implements ExamService {
@@ -42,7 +45,13 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public Exam create(Exam exam, Long topicId) {
-        return null;
+        Set<ConstraintViolation<Exam>> violations = validator.validate(exam);
+        if (!violations.isEmpty())
+            throw new ResourceValidationException(ENTITY, violations);
+        return topicRepository.findById(topicId).map(topic -> {
+            exam.setTopic(topic);
+            return examRepository.save(exam);
+        }).orElseThrow(()->new ResourceNotFoundException("Topic ",topicId));
     }
 
     @Override
