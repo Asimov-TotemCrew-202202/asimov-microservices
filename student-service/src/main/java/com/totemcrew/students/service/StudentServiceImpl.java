@@ -51,6 +51,10 @@ public class StudentServiceImpl implements StudentService {
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
+        var existingUserId = studentRepository.findByUserId(student.getUserId());
+        if (existingUserId != null)
+            throw new ResourceValidationException("UserId must to be unique");
+
         return sectionRepository.findById(sectionId).map(section -> {
             student.setSection(section);
             return studentRepository.save(student);
@@ -65,7 +69,8 @@ public class StudentServiceImpl implements StudentService {
 
         return studentRepository.findById(studentId)
                 .map(student -> studentRepository.save(student.withParentFullname(request.getParentFullname())
-                        .withPhoneParent(request.getPhoneParent()).withSection(student.getSection()).withUserId(student.getUserId())))
+                        .withPhoneParent(request.getPhoneParent()).withSection(student.getSection())
+                        .withUserId(student.getUserId())))
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, studentId));
     }
 
