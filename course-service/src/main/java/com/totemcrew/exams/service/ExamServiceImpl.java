@@ -48,6 +48,9 @@ public class ExamServiceImpl implements ExamService {
         Set<ConstraintViolation<Exam>> violations = validator.validate(exam);
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
+        var examExist = examRepository.findByTopicId(topicId);
+        if (examExist != null)
+            throw new ResourceValidationException("Exam already exist");
         return topicRepository.findById(topicId).map(topic -> {
             exam.setTopic(topic);
             return examRepository.save(exam);
