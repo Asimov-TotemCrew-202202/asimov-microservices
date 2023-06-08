@@ -4,6 +4,7 @@ import com.totemcrew.courses.domain.model.entity.Course;
 import com.totemcrew.exams.domain.model.entity.Exam;
 import com.totemcrew.shared.domain.model.AuditModel;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,7 +36,8 @@ public class Topic extends AuditModel {
 
     @NotNull
     @NotBlank
-    @Size(max = 100)
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String file;
 
     //relation with courses
