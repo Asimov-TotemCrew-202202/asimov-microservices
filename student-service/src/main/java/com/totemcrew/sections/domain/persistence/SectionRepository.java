@@ -12,6 +12,7 @@ import com.totemcrew.sections.domain.model.entity.Section;
 @Repository
 public interface SectionRepository extends JpaRepository<Section, Long> {
     Section findByName(String name);
+    Section findByGradeIdAndName(Long gradeId, String name);
     List<Section> findByGradeId(Long gradeId);
     Page<Section> findByGradeId(Long gradeId, Pageable pageable);
 }

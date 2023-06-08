@@ -60,6 +60,10 @@ public class SectionServiceImpl implements SectionService {
         Set<ConstraintViolation<Section>> violations = validator.validate(section);
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
+
+        var existingSectionByGrade =  sectionRepository.findByGradeIdAndName(gradeId, section.getName());
+        if (existingSectionByGrade != null) 
+            throw new ResourceValidationException("This section already exist for this grade");
         
             return gradeRepository.findById(gradeId).map(grade -> {
                 section.setGrade(grade);
