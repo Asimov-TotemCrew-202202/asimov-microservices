@@ -21,8 +21,4 @@ public class CreateTopicResource {
     @NotNull
     @NotBlank
     private String file;
-
-    @NotNull
-    @NotBlank
-    private String courseId;
 }

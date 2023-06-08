@@ -14,6 +14,4 @@ public class TopicResource {
     private String description;
 
     private String file;
-
-    private int courseId;
 }
