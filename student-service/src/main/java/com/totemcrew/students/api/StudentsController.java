@@ -23,7 +23,7 @@ public class StudentsController {
 
     @GetMapping
     public List<StudentResource> getAllStudentsBySection(@RequestParam(required = false) Long sectionId) {
-        return mapper.modelListToResource(studentService.getAllBySectionId(sectionId)); 
+        return mapper.modelListToResource(studentService.getAllBySectionId(sectionId));
     }
     @PostMapping
     public StudentResource createStudent(@RequestBody CreateStudentResource request) {

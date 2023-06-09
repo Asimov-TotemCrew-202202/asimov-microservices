@@ -33,13 +33,13 @@ public class CompetenceController {
         return mapper.toResource(competenceService.create(mapper.toModel(request)));
     }
     @PutMapping("competences/{competenceId}")
-    public CompetenceResource updateCompetence(@PathVariable Long teacherId, @RequestBody UpdateCompetenceResource request) {
-        return mapper.toResource(competenceService.update(teacherId, mapper.toModel(request)));
+    public CompetenceResource updateCompetence(@PathVariable Long competenceId, @RequestBody UpdateCompetenceResource request) {
+        return mapper.toResource(competenceService.update(competenceId, mapper.toModel(request)));
     }
 
     @DeleteMapping("competences/{competenceId}")
-    public ResponseEntity<?> deleteCompetence(@PathVariable Long teacherId) {
-        return competenceService.delete(teacherId);
+    public ResponseEntity<?> deleteCompetence(@PathVariable Long competenceId) {
+        return competenceService.delete(competenceId);
     }
 
 

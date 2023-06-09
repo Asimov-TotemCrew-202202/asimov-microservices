@@ -63,7 +63,7 @@ public class CompetenceServiceImpl implements CompetenceService {
         return competenceRepository.findById(competenceId).map( data ->
                 competenceRepository.save(
                         data.withDescription(competence.getDescription())
-                                .withDescription(competence.getDescription()))
+                                .withName(competence.getName()))
         ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, competenceId));
     }
 
