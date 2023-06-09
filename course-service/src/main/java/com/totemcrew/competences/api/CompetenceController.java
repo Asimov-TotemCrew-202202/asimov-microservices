@@ -27,6 +27,11 @@ public class CompetenceController {
         return mapper.modelListToResource(competenceService.getAll());
     }
 
+    @GetMapping("competences/{competenceId}")
+    public CompetenceResource getCompetenceById(@PathVariable Long competenceId) {
+        return mapper.toResource(competenceService.getById(competenceId));
+    }
+
     @PostMapping("competences")
     public CompetenceResource createCompetence(@RequestBody CreateCompetenceResource request) {
 
