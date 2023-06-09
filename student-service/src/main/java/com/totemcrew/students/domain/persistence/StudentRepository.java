@@ -1,12 +1,13 @@
 package com.totemcrew.students.domain.persistence;
 
+import com.totemcrew.students.domain.model.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.totemcrew.students.domain.model.entity.Student;
-
+@Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    Student findByUserId(Long userId);
+
     List<Student> findBySectionId(Long sectionId);
 }

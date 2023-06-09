@@ -1,16 +1,19 @@
 package com.totemcrew.students.domain.service;
 
-import java.util.List;
-
+import com.totemcrew.students.domain.model.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-import com.totemcrew.students.domain.model.entity.Student;
+import java.util.List;
 
 public interface StudentService {
+    List<Student> getAll();
     List<Student> getAllBySectionId(Long sectionId);
+    Page<Student> getAll(Pageable pageable);
     Student getById(Long studentId);
-    
-    Student create(Long sectionId, Student student);
-    Student update(Long studentId, Student student);
+
+    Student create(Student student);
+    Student update(Long gradeId, Student student);
     ResponseEntity<?> delete(Long studentId);
 }

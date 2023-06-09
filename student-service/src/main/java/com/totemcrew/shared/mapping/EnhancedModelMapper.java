@@ -9,6 +9,7 @@ public class EnhancedModelMapper extends ModelMapper {
 
     public EnhancedModelMapper() {
         super();
+        this.getConfiguration().setAmbiguityIgnored(true);
     }
 
     public <S, T> List<T> mapList(List<S> sourceList, Class<T> targetClass) {

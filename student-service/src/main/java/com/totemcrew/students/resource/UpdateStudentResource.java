@@ -10,17 +10,17 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class UpdateStudentResource {
+
     @NotNull
     @NotBlank
     @Size(max = 60)
-    private String parentFullname;
+    private String parentFullName;
 
     @NotNull
     @NotBlank
     @Size(max = 45)
     private String phoneParent;
 
-    @NotNull
-    @NotBlank
+    private Long userId;
     private Long sectionId;
 }

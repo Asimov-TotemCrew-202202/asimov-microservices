@@ -6,13 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StudentResource {
+
     private Long id;
-
-    private String parentFullname;
-
+    private String parentFullName;
     private String phoneParent;
-
     private Long userId;
-
     private Long sectionId;
 }
