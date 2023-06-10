@@ -12,6 +12,7 @@ public interface TeacherService {
     Page<Teacher> getAll(Pageable pageable);
     List<Teacher> getAllByPrincipalId(Long principalId);
     Teacher getById(Long teacherId);
+    Teacher getByUserId(Long userId);
     Teacher create(Long principalId, Teacher teacher);
     Teacher update(Long teacherId, Teacher teacher);
     ResponseEntity<?> delete(Long teacherId);

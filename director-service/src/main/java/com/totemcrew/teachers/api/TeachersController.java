@@ -34,6 +34,11 @@ public class TeachersController {
         return mapper.toResource(teacherService.getById(teacherId));
     }
 
+    @GetMapping("teachers/getByUser/{userId}")
+    public TeacherResource getTeacherByUserId(@PathVariable("userId") Long userId) {
+        return mapper.toResource(teacherService.getByUserId(userId));
+    }
+
     @PostMapping("principals/{principalId}/teachers")
     public TeacherResource createUser(@PathVariable Long principalId, @RequestBody CreateTeacherResource request) {
         return mapper.toResource(teacherService.create(principalId, mapper.toModel(request)));

@@ -21,7 +21,6 @@ import java.util.Set;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
-
     private static final String ENTITY = "Teacher";
     @Autowired
     private TeacherRepository teacherRepository;
@@ -57,6 +56,11 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher getById(Long teacherId) {
         return teacherRepository.findById(teacherId)
                 .orElseThrow( () -> new ResourceNotFoundException(ENTITY, teacherId));
+    }
+
+    @Override
+    public Teacher getByUserId(Long userId) {
+        return teacherRepository.findByUserId(userId);
     }
 
     @Override
