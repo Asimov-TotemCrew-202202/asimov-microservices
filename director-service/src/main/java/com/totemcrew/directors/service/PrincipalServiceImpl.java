@@ -50,6 +50,11 @@ public class PrincipalServiceImpl implements PrincipalService {
     }
 
     @Override
+    public Principal getByUserId(Long userId) {
+        return principalRepository.findByUserId(userId);
+    }
+
+    @Override
     public Principal create(Principal director) {
         Set<ConstraintViolation<Principal>> violations = validator.validate(director);
         if(!violations.isEmpty())

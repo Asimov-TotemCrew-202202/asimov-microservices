@@ -10,4 +10,6 @@ public interface PrincipalRepository extends JpaRepository<Principal, Long> {
     //@Query("select d from Director d where d.email = ?1")
     //Optional<Director> findByEmail(String email);
 
+    Principal findByUserId(Long userId);
+
 }

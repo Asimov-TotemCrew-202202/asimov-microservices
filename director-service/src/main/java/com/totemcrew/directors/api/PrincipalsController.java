@@ -29,6 +29,11 @@ public class PrincipalsController {
         return mapper.toResource(principalService.getById(directorId));
     }
 
+    @GetMapping("/getByUser/{userId}")
+    public PrincipalResource getDirectorByUserId(@PathVariable("userId") Long userId) {
+        return mapper.toResource(principalService.getByUserId(userId));
+    }
+
     @PostMapping("")
     public PrincipalResource createPrincipal(@RequestBody CreatePrincipalResource request) {
         return mapper.toResource(principalService.create(mapper.toModel(request)));

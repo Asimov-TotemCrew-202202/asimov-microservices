@@ -11,6 +11,7 @@ public interface PrincipalService {
     List<Principal> getAll();
     Page<Principal> getAll(Pageable pageable);
     Principal getById(Long directorId);
+    Principal getByUserId(Long userId);
     Principal create(Principal director);
     Principal update(Long directorId, Principal director);
     ResponseEntity<?> delete(Long directorId);
