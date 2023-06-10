@@ -21,4 +21,5 @@ public class UpdateTopicResource {
     @NotNull
     @NotBlank
     private String file;
+    private Boolean status;
 }

@@ -40,6 +40,8 @@ public class Topic extends AuditModel {
     @Type(type = "org.hibernate.type.TextType")
     private String file;
 
+    private Boolean status;
+
     //relation with courses
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "course_id", nullable = false)

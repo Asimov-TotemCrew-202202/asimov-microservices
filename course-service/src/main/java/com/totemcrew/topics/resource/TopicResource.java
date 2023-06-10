@@ -8,10 +8,8 @@ import lombok.Setter;
 public class TopicResource {
 
     private Long id;
-
     private String title;
-
     private String description;
-
     private String file;
+    private Boolean status;
 }

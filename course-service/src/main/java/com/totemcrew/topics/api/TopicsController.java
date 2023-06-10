@@ -33,6 +33,11 @@ public class TopicsController {
         return mapper.toResource(topicService.create(mapper.toModel(request),courseId));
     }
 
+    @PostMapping("topics/{topicId}/complete")
+    public TopicResource completeTopic(@PathVariable Long topicId) {
+        return mapper.toResource(topicService.completeTopic(topicId));
+    }
+
 
     @PutMapping("topics/{topicId}")
     public TopicResource updateTopic(@PathVariable Long topicId, @RequestBody UpdateTopicResource request) {

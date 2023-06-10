@@ -11,6 +11,7 @@ public interface TopicService {
     List<Topic> getAllByCourseId(Long courseId);
     Page<Topic> getAllByCourseId(Long courseId, Pageable pageable);
     Topic getById(Long itemId);
+    Topic completeTopic(Long topicId);
     Topic create(Topic item, Long courseId);
     Topic update(Long itemId, Topic request);
     ResponseEntity<?> delete(Long itemId);

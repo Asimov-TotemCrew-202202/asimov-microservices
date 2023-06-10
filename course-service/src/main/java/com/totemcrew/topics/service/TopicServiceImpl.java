@@ -25,7 +25,7 @@ public class TopicServiceImpl implements TopicService {
 
     private static final String ENTITY = "Item";
     @Autowired
-    private TopicRepository itemRepository;
+    private TopicRepository topicRepository;
     @Autowired
     private Validator validator;
 
@@ -35,17 +35,17 @@ public class TopicServiceImpl implements TopicService {
         var existingCourse =  courseRepository.findById(courseId);
         if(existingCourse.isEmpty())
             throw new ResourceNotFoundException("Course",courseId);
-        return itemRepository.findByCourseId(courseId);
+        return topicRepository.findByCourseId(courseId);
     }
 
     @Override
     public Page<Topic> getAllByCourseId(Long courseId, Pageable pageable) {
-        return itemRepository.findByCourseId(courseId,pageable);
+        return topicRepository.findByCourseId(courseId,pageable);
     }
 
     @Override
     public Topic getById(Long itemId) {
-        return itemRepository.findById(itemId)
+        return topicRepository.findById(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, itemId));
     }
 
@@ -55,9 +55,20 @@ public class TopicServiceImpl implements TopicService {
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
         return courseRepository.findById(courseId).map(course -> {
+            item.setStatus(false);
             item.setCourse(course);
-            return itemRepository.save(item);
+            return topicRepository.save(item);
         }).orElseThrow(()->new ResourceNotFoundException("Course ",courseId));
+    }
+
+    @Override
+    public Topic completeTopic(Long topicId) {
+       var topic = topicRepository.findById(topicId);
+       if (topic.isEmpty())
+           throw new ResourceValidationException("topic not exist");
+
+       topic.get().setStatus(true);
+       return topicRepository.save(topic.get());
     }
 
     @Override
@@ -66,18 +77,20 @@ public class TopicServiceImpl implements TopicService {
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        return itemRepository.findById(itemId).map(item ->
-                itemRepository.save(
-                        item.withTitle(request.getTitle())
-                                .withFile(request.getFile())).withDescription(request.getDescription())
+        return topicRepository.findById(itemId).map(item ->
+                topicRepository.save(item
+                                .withTitle(request.getTitle())
+                                .withFile(request.getFile()))
+                        .withDescription(request.getDescription())
+                        .withStatus(request.getStatus())
                 ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, itemId));
     }
 
 
     @Override
     public ResponseEntity<?> delete(Long itemId) {
-        return itemRepository.findById(itemId).map(item -> {
-            itemRepository.delete(item);
+        return topicRepository.findById(itemId).map(item -> {
+            topicRepository.delete(item);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, itemId));
     }
