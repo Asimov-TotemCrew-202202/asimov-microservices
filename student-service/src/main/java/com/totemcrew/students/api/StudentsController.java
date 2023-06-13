@@ -1,6 +1,5 @@
 package com.totemcrew.students.api;
 
-import com.totemcrew.grades.resource.GradeResource;
 import com.totemcrew.students.domain.service.StudentService;
 import com.totemcrew.students.mapping.StudentMapper;
 import com.totemcrew.students.resource.CreateStudentResource;
@@ -24,6 +23,11 @@ public class StudentsController {
     @GetMapping
     public List<StudentResource> getAllStudentsBySection(@RequestParam(required = false) Long sectionId) {
         return mapper.modelListToResource(studentService.getAllBySectionId(sectionId));
+    }
+
+    @GetMapping("{studentId}")
+    public StudentResource getStudentById(@PathVariable("studentId") Long studentId) {
+        return mapper.toResource(studentService.getById(studentId));
     }
     @PostMapping
     public StudentResource createStudent(@RequestBody CreateStudentResource request) {

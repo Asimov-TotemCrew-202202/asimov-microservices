@@ -1,6 +1,7 @@
 package com.totemcrew.students.service;
 
 import com.totemcrew.sections.domain.persistence.SectionRepository;
+import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.students.domain.model.entity.Student;
 import com.totemcrew.students.domain.persistence.StudentRepository;
@@ -47,7 +48,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getById(Long studentId) {
-        return null;
+        return studentRepository.findById(studentId)
+                .orElseThrow( () -> new ResourceNotFoundException(ENTITY, studentId));
     }
 
     @Override
