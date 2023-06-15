@@ -32,7 +32,7 @@ import com.totemcrew.repository.UserRepository;
 import com.totemcrew.security.jwt.JwtUtils;
 import com.totemcrew.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
