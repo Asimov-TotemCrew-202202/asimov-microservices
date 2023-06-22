@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.totemcrew.feign.StudentFeignClient;
+import com.totemcrew.payload.request.CreateStudentResource;
+import com.totemcrew.payload.request.SignUpRequestGeneral;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,6 +54,13 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  @Autowired
+  StudentFeignClient studentFeignClient;
+
+  boolean isStudent = false;
+  boolean isTeacher = false;
+  boolean isPrincipal = false;
+
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -76,7 +86,8 @@ public class AuthController {
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+  public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequestGeneral signUpRequest) {
+
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
@@ -112,24 +123,40 @@ public class AuthController {
           Role adminRole = roleRepository.findByName(ERole.ROLE_TEACHER)
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
           roles.add(adminRole);
-
+          isStudent = false;
+          isPrincipal = false;
+          isTeacher = true;
           break;
         case "principal":
           Role modRole = roleRepository.findByName(ERole.ROLE_PRINCIPAL)
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
           roles.add(modRole);
-
+          isStudent = false;
+          isPrincipal = true;
+          isTeacher = false;
           break;
         default:
           Role userRole = roleRepository.findByName(ERole.ROLE_STUDENT)
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
           roles.add(userRole);
+          isStudent = true;
+          isPrincipal = false;
+          isTeacher = false;
         }
       });
     }
 
     user.setRoles(roles);
-    userRepository.save(user);
+    User userRegistered = userRepository.save(user);
+
+    if(isStudent) {
+      CreateStudentResource studentResource = new CreateStudentResource();
+      studentResource.setParentFullName(signUpRequest.getParentFullName());
+      studentResource.setPhoneParent(signUpRequest.getPhoneParent());
+      studentResource.setUserId(userRegistered.getId());
+      studentResource.setSectionId(signUpRequest.getSectionId());
+      studentFeignClient.createStudent(studentResource);
+    }
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
