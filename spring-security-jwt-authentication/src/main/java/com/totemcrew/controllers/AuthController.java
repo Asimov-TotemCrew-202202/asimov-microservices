@@ -55,7 +55,13 @@ public class AuthController {
 
   @Autowired
   JwtUtils jwtUtils;
-
+  @Autowired
+  StudentFeignClient studentFeignClient;
+  @Autowired
+  UserService userService;
+  boolean isStudent = false;
+  boolean isTeacher = false;
+  boolean isPrincipal = false;
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
