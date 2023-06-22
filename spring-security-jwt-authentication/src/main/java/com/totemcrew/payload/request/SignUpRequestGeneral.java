@@ -40,6 +40,45 @@ public class SignUpRequestGeneral {
 
     private String specialty;
 
+    private String speciality;
+    private double experienceYears;
+
+    private double salary;
+
+    private Long directorId;
+
+    public void setDirectorId(Long directorId) {
+        this.directorId = directorId;
+    }
+
+    public Long getDirectorId() {
+        return directorId;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setExperienceYears(double experienceYears) {
+        this.experienceYears = experienceYears;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public double getExperienceYears() {
+        return experienceYears;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }

@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.totemcrew.feign.PrincipalFeignClient;
 import com.totemcrew.feign.StudentFeignClient;
-import com.totemcrew.payload.request.CreateStudentResource;
-import com.totemcrew.payload.request.SignUpRequestGeneral;
+import com.totemcrew.payload.request.*;
 import com.totemcrew.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import com.totemcrew.models.ERole;
 import com.totemcrew.models.Role;
 import com.totemcrew.models.User;
-import com.totemcrew.payload.request.LoginRequest;
-import com.totemcrew.payload.request.SignupRequest;
 import com.totemcrew.payload.response.JwtResponse;
 import com.totemcrew.payload.response.MessageResponse;
 import com.totemcrew.repository.RoleRepository;
@@ -57,6 +55,8 @@ public class AuthController {
   JwtUtils jwtUtils;
   @Autowired
   StudentFeignClient studentFeignClient;
+  @Autowired
+  PrincipalFeignClient principalFeignClient;
   @Autowired
   UserService userService;
   boolean isStudent = false;
@@ -158,7 +158,21 @@ public class AuthController {
       studentResource.setSectionId(signUpRequest.getSectionId());
       studentFeignClient.createStudent(studentResource);
     }
-
+    if(isPrincipal) {
+      CreatePrincipalResource principalResource = new CreatePrincipalResource();
+      principalResource.setUserId(userRegistered.getId());
+      principalResource.setSalary(signUpRequest.getSalary());
+      principalResource.setSpecialty(signUpRequest.getSpecialty());
+      principalResource.setExperienceYears(signUpRequest.getExperienceYears());
+      principalFeignClient.createPrincipal(principalResource);
+    }
+    if(isTeacher) {
+      CreateTeacherResource teacherResource = new CreateTeacherResource();
+      teacherResource.setUserId(userRegistered.getId());
+      teacherResource.setSalary(signUpRequest.getSalary());
+      teacherResource.setSpeciality(signUpRequest.getSpeciality());
+      principalFeignClient.createTeacher(signUpRequest.getDirectorId(), teacherResource);
+    }
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 
