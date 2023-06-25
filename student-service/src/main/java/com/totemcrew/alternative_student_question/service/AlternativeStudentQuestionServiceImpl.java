@@ -1,5 +1,6 @@
 package com.totemcrew.alternative_student_question.service;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -37,6 +38,14 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
     public AlternativeStudentQuestion getById(Long alternativeId) {
         return alternativeStudentQuestionRepository.findById(alternativeId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, alternativeId));
+    }
+
+    @Override
+    public List<AlternativeStudentQuestion> getByStudentIdAndExamId(Long studentId, Long examId) {
+        var existingAlternatives =  alternativeStudentQuestionRepository.findByStudentIdAndExamId(studentId, examId);
+        if(existingAlternatives.isEmpty())
+            throw new ResourceNotFoundException(ENTITY, examId);
+        return existingAlternatives;
     }
 
     @Override
