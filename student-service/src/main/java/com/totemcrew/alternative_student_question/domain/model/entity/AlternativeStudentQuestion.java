@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.totemcrew.alternative_student_question.model.ExamDetailResource;
 import com.totemcrew.shared.domain.model.AuditModel;
 import com.totemcrew.students.domain.model.entity.Student;
 
@@ -23,9 +24,7 @@ public class AlternativeStudentQuestion extends AuditModel {
     private Long id;
 
     @NotNull
-    @NotBlank
-    @Size(max = 10)
-    private String checkedAlternative;
+    private int checkedAlternative;
 
     @NotNull
     private Boolean isCorrect;
@@ -36,8 +35,5 @@ public class AlternativeStudentQuestion extends AuditModel {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Student student;
 
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "exam_detail_id", nullable = false)
-    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    // private ExamDetail examDetail;
+    private Long examDetailId;
 }

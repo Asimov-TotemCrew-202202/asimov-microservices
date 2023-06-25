@@ -7,6 +7,6 @@ import java.util.List;
 public interface ExamDetailService {
 
     List<ExamDetail> getAllByExamId(Long examId);
-    ExamDetail getByIdAndExamId(Long id, Long examId);
+    ExamDetail getById(Long id);
     ExamDetail create(ExamDetail item, Long examId);
 }

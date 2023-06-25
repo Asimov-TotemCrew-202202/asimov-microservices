@@ -35,19 +35,11 @@ public class ExamsController {
         //return mapper.toResource(examService.getExamByTopicId(topicId));
     }
 
-    @GetMapping("exams/{examId}/examDetail/{id}")
-    public ExamDetailResource getExamDetailByIdAndExamId(@PathVariable Long examId, @PathVariable Long id) {
-        System.out.println("here " + id + " " + examId);
-        var examDetail = examDetailMapper.modelToResource(examDetailService.getByIdAndExamId(id, examId));
+    @GetMapping("exams/examDetail/{id}")
+    public ExamDetailResource getExamDetailByIdAndExamId(@PathVariable Long id) {
+        var examDetail = examDetailMapper.modelToResource(examDetailService.getById(id));
         return examDetail;
     }
-
-    // @GetMapping("topics/{topicId}/exams")
-    // public ExamDetailResource getExamDetailByIdAndExamId(@PathVariable Long topicId) {
-    //     System.out.println("here " + topicId);
-    //     var examDetail = examDetailMapper.modelToResource(examDetailService.getByIdAndExamId(topicId, topicId));
-    //     return examDetail;
-    // }
 
     @PostMapping("topics/{topicId}/exams")
     public ExamResource createExam(@RequestBody CreateExamResource request, @PathVariable Long topicId) {
