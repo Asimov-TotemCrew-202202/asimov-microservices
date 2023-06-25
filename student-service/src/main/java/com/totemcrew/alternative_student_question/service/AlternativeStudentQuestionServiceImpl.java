@@ -13,6 +13,11 @@ import com.totemcrew.alternative_student_question.client.ExamDetailClient;
 import com.totemcrew.alternative_student_question.domain.model.entity.AlternativeStudentQuestion;
 import com.totemcrew.alternative_student_question.domain.persistence.AlternativeStudentQuestionRepository;
 import com.totemcrew.alternative_student_question.domain.service.AlternativeStudentQuestionService;
+import com.totemcrew.scores.domain.model.Score;
+import com.totemcrew.scores.domain.persistence.ScoreRepository;
+import com.totemcrew.scores.domain.service.ScoreService;
+import com.totemcrew.scores.mapping.ScoreMapper;
+import com.totemcrew.scores.resource.CreateScoreResource;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.students.domain.persistence.StudentRepository;
@@ -34,6 +39,12 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    private ScoreRepository scoreRepository;
+
+    @Autowired
+    private ScoreService scoreService;
+
     @Override
     public AlternativeStudentQuestion getById(Long alternativeId) {
         return alternativeStudentQuestionRepository.findById(alternativeId)
@@ -50,7 +61,6 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
 
     @Override
     public AlternativeStudentQuestion create(AlternativeStudentQuestion alternative, Long studentId, Long examDetailId) {
-        System.out.println("here" + studentId + examDetailId);
 
         Set<ConstraintViolation<AlternativeStudentQuestion>> violations = validator.validate(alternative);
         if (!violations.isEmpty())
@@ -70,8 +80,21 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
                 alternative.setIsCorrect(false);
                 alternative.setExamId(existingExamDetail.getExamId());
 
-                if (alternative.getCheckedAlternative() == existingExamDetail.getCorrectOptionOrder())
+                // crea clase si no existe
+                var existingScore = scoreRepository.findByStudentIdAndExamId(studentId, existingExamDetail.getExamId());
+                if (existingScore == null) {
+                    Score request = new Score();
+                    existingScore = scoreService.create(request, studentId, (existingExamDetail.getExamId()));
+                }
+
+                // si existe añade un punto si la respuesta es correcta, y siempre añade un punto al total de preguntas
+                if (alternative.getCheckedAlternative() == existingExamDetail.getCorrectOptionOrder()) {
                     alternative.setIsCorrect(true);
+                    existingScore.setPoints(existingScore.getPoints() + 1);
+                }
+                existingScore.setNumberQuestions(existingScore.getNumberQuestions() + 1);
+
+                scoreService.update(existingScore, existingScore.getId());
 
                 return alternativeStudentQuestionRepository.save(alternative);
             }).orElseThrow(()->new ResourceNotFoundException("Student ", studentId));

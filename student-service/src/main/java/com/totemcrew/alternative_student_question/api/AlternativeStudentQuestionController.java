@@ -14,7 +14,7 @@ import com.totemcrew.alternative_student_question.resource.CreateAlternativeStud
 @RequestMapping("api/v1")
 public class AlternativeStudentQuestionController {
     
-@Autowired
+    @Autowired
     private AlternativeStudentQuestionService alternativeStudentQuestionService;
 
     @Autowired
@@ -25,12 +25,12 @@ public class AlternativeStudentQuestionController {
         return mapper.toResource(alternativeStudentQuestionService.getById(id));
     }
 
-    @GetMapping("students/{studentId}/examId/{examId}")
-    public List<AlternativeStudentQuestionResource> geetByStudentIdAndExamId(@PathVariable Long studentId, @PathVariable Long examId) {
+    @GetMapping("alternatives/students/{studentId}/examId/{examId}")
+    public List<AlternativeStudentQuestionResource> getByStudentIdAndExamId(@PathVariable Long studentId, @PathVariable Long examId) {
         return mapper.modelListToResource(alternativeStudentQuestionService.getByStudentIdAndExamId(studentId, examId));
     }
 
-    @PostMapping("students/{studentId}/examDetail/{detailId}")
+    @PostMapping("alternatives/students/{studentId}/examDetail/{detailId}")
     public AlternativeStudentQuestionResource createSection(@RequestBody CreateAlternativeStudentQuestionResource request, @PathVariable Long studentId, @PathVariable Long detailId) {
         return mapper.toResource(alternativeStudentQuestionService.create(mapper.toModel(request), studentId, detailId));
     }

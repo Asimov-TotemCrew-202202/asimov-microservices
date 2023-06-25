@@ -6,7 +6,6 @@ import com.totemcrew.exams.domain.persistence.ExamRepository;
 import com.totemcrew.exams.domain.service.ExamDetailService;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
-import com.totemcrew.topics.domain.model.entity.Topic;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;

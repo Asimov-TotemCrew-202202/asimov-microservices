@@ -7,5 +7,5 @@ import com.totemcrew.scores.domain.model.Score;
 
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Long> {
-    
+    Score findByStudentIdAndExamId(Long studentId, Long examId);
 }
