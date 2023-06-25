@@ -26,7 +26,6 @@ public class AlternativeStudentQuestion extends AuditModel {
     @NotNull
     private int checkedAlternative;
 
-    @NotNull
     private Boolean isCorrect;
 
     //relationships
@@ -34,6 +33,6 @@ public class AlternativeStudentQuestion extends AuditModel {
     @JoinColumn(name = "student_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Student student;
-
     private Long examDetailId;
+    private Long examId;
 }

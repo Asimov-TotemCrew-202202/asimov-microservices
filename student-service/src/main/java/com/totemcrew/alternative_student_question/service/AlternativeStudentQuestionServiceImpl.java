@@ -12,9 +12,6 @@ import com.totemcrew.alternative_student_question.client.ExamDetailClient;
 import com.totemcrew.alternative_student_question.domain.model.entity.AlternativeStudentQuestion;
 import com.totemcrew.alternative_student_question.domain.persistence.AlternativeStudentQuestionRepository;
 import com.totemcrew.alternative_student_question.domain.service.AlternativeStudentQuestionService;
-import com.totemcrew.grades.domain.model.entity.Grade;
-import com.totemcrew.grades.domain.persistence.GradeRepository;
-import com.totemcrew.sections.domain.model.entity.Section;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.students.domain.persistence.StudentRepository;
@@ -44,6 +41,8 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
 
     @Override
     public AlternativeStudentQuestion create(AlternativeStudentQuestion alternative, Long studentId, Long examDetailId) {
+        System.out.println("here" + studentId + examDetailId);
+
         Set<ConstraintViolation<AlternativeStudentQuestion>> violations = validator.validate(alternative);
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
@@ -52,10 +51,15 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
         if (existingExamDetail == null) 
            throw new ResourceNotFoundException("Exam detail ", examDetailId);
 
+        var existingAlternative =  alternativeStudentQuestionRepository.findByStudentIdAndExamDetailId(studentId, examDetailId);
+        if (existingAlternative != null) 
+           throw new ResourceValidationException("Alternative already exists with same studentId and examDetailId");
+
          return studentRepository.findById(studentId).map(student -> {
                 alternative.setStudent(student);
                 alternative.setExamDetailId(examDetailId);
                 alternative.setIsCorrect(false);
+                alternative.setExamId(existingExamDetail.getExamId());
 
                 if (alternative.getCheckedAlternative() == existingExamDetail.getCorrectOptionOrder())
                     alternative.setIsCorrect(true);

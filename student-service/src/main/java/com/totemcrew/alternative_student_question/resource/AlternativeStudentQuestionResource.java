@@ -11,4 +11,5 @@ public class AlternativeStudentQuestionResource {
     private Boolean isCorrect;
     private Long studentId;
     private Long examDetailId;
+    private Long examId;
 }

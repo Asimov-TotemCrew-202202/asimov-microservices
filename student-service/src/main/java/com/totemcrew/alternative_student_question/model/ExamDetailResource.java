@@ -10,4 +10,5 @@ public class ExamDetailResource {
     private String question;
     private List<String> options;
     private int correctOptionOrder;
+    private Long examId;
 }

@@ -6,5 +6,5 @@ import com.totemcrew.alternative_student_question.domain.model.entity.Alternativ
 
 @Repository
 public interface AlternativeStudentQuestionRepository extends JpaRepository<AlternativeStudentQuestion, Long> {
-    
+    AlternativeStudentQuestion findByStudentIdAndExamDetailId(Long studentId, Long examDetailId);
 }

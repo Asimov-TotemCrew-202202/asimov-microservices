@@ -20,12 +20,12 @@ public class AlternativeStudentQuestionController {
     @Autowired
     private AlternativeStudentQuestionMapper mapper;
 
-    @GetMapping("alternative/{id}")
+    @GetMapping("alternatives/{id}")
     public AlternativeStudentQuestionResource getById(@PathVariable Long id) {
         return mapper.toResource(alternativeStudentQuestionService.getById(id));
     }
 
-    @PostMapping("student/{studentId}/examDetail/{detailId}")
+    @PostMapping("students/{studentId}/examDetail/{detailId}")
     public AlternativeStudentQuestionResource createSection(@RequestBody CreateAlternativeStudentQuestionResource request, @PathVariable Long studentId, @PathVariable Long detailId) {
         return mapper.toResource(alternativeStudentQuestionService.create(mapper.toModel(request), studentId, detailId));
     }
