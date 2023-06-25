@@ -12,5 +12,5 @@ import java.util.List;
 public class ExamResource {
 
     private Long id;
-    List<CreateExamDetailResource> examDetailResources;
+    List<ExamDetailResource> examDetailResources;
 }

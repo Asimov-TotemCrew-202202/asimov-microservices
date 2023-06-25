@@ -38,6 +38,16 @@ public class ExamDetailServiceImpl implements ExamDetailService {
     }
 
     @Override
+    public ExamDetail getByIdAndExamId(Long id, Long examId) {
+        System.out.println("here " + id + " " + examId);
+        var existingExamDetail = examDetailRepository.findByIdAndExamId(examId, id);
+        if (existingExamDetail.isEmpty())
+            throw new ResourceNotFoundException("Exam Detail", id);
+        
+        return existingExamDetail.get();
+    }
+
+    @Override
     public ExamDetail create(ExamDetail item, Long examId) {
         Set<ConstraintViolation<ExamDetail>> violations = validator.validate(item);
         if (!violations.isEmpty())

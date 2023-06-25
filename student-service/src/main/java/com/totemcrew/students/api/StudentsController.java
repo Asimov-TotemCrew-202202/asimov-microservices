@@ -29,6 +29,7 @@ public class StudentsController {
     public StudentResource getStudentById(@PathVariable("studentId") Long studentId) {
         return mapper.toResource(studentService.getById(studentId));
     }
+    
     @PostMapping
     public StudentResource createStudent(@RequestBody CreateStudentResource request) {
         return mapper.toResource(studentService.create(mapper.toModel(request)));
