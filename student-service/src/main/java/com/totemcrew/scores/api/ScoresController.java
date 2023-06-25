@@ -30,9 +30,4 @@ public class ScoresController {
     public ScoreResource getByStudentIdAndExamId(@PathVariable Long studentId, @PathVariable Long examId) {
         return mapper.toResource(scoreService.getByStudentIdAndExamId(studentId, examId));
     }
-
-    // @PostMapping("scores/students/{studentId}/examId/{examId}")
-    // public ScoreResource createScore(@RequestBody CreateScoreResource request, @PathVariable Long studentId, @PathVariable Long examId) {
-    //     return mapper.toResource(scoreService.create(mapper.toModel(request), studentId, examId));
-    // }
 }
