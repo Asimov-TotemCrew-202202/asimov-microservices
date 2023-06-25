@@ -48,4 +48,5 @@ public class PrincipalsController {
     public ResponseEntity<?> deletePrincipal(@PathVariable Long directorId) {
         return principalService.delete(directorId);
     }
+
 }
