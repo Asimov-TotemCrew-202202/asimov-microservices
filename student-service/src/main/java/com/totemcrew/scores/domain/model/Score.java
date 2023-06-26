@@ -20,6 +20,7 @@ public class Score extends AuditModel {
     private Long id;
 
     private int points;
+    private float finalScore;
     private int numberQuestions;
 
     //relationships

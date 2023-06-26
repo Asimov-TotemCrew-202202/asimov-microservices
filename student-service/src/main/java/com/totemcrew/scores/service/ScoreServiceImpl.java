@@ -38,6 +38,15 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
+    public List<Score> getByStudentId(Long studentId) {
+        var existingStudent =  studentRepository.findById(studentId);
+        if(existingStudent.isEmpty())
+            throw new ResourceNotFoundException("Student", studentId);
+
+        return scoreRepository.findByStudentId(studentId);
+    }
+
+    @Override
     public Score getByStudentIdAndExamId(Long studentId, Long examId) {
         var existingScore =  scoreRepository.findByStudentIdAndExamId(studentId, examId);
         if(existingScore == null)
@@ -55,6 +64,7 @@ public class ScoreServiceImpl implements ScoreService {
             score.setExamId(examId);
             score.setNumberQuestions(0);
             score.setPoints(0);
+            score.setFinalScore(0);
             score.setStudent(student);
             return scoreRepository.save(score);
         }).orElseThrow(()->new ResourceNotFoundException("Student ", studentId));
@@ -68,7 +78,8 @@ public class ScoreServiceImpl implements ScoreService {
 
             return scoreRepository.findById(id).map(score ->
             scoreRepository.save(
-                    score.withNumberQuestions(request.getNumberQuestions()).withPoints(request.getPoints()))
+                    score.withNumberQuestions(request.getNumberQuestions())
+                    .withPoints(request.getPoints())).withFinalScore(request.getFinalScore())
     ).orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
     }
 }

@@ -3,13 +3,8 @@ package com.totemcrew.exams.domain.model.entity;
 import com.totemcrew.shared.domain.model.AuditModel;
 import com.totemcrew.topics.domain.model.entity.Topic;
 import lombok.*;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter

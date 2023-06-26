@@ -1,5 +1,7 @@
 package com.totemcrew.scores.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,11 @@ public class ScoresController {
     @GetMapping("scores/{id}")
     public ScoreResource getById(@PathVariable Long id) {
         return mapper.toResource(scoreService.getById(id));
+    }
+
+    @GetMapping("scores/students/{studentId}")
+    public List<ScoreResource> getByStudentId(@PathVariable Long studentId) {
+        return mapper.modelListToResource(scoreService.getByStudentId(studentId));
     }
 
     @GetMapping("scores/students/{studentId}/exams/{examId}")

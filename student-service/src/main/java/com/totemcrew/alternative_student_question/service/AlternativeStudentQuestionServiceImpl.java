@@ -16,8 +16,6 @@ import com.totemcrew.alternative_student_question.domain.service.AlternativeStud
 import com.totemcrew.scores.domain.model.Score;
 import com.totemcrew.scores.domain.persistence.ScoreRepository;
 import com.totemcrew.scores.domain.service.ScoreService;
-import com.totemcrew.scores.mapping.ScoreMapper;
-import com.totemcrew.scores.resource.CreateScoreResource;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.students.domain.persistence.StudentRepository;
@@ -26,6 +24,7 @@ import com.totemcrew.students.domain.persistence.StudentRepository;
 public class AlternativeStudentQuestionServiceImpl implements AlternativeStudentQuestionService{
 
     private static final String ENTITY = "AlternativeStudentQuestion";
+    private static final float BASE_SCORE = 20;
 
     @Autowired
     private AlternativeStudentQuestionRepository alternativeStudentQuestionRepository;
@@ -86,14 +85,18 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
                     Score request = new Score();
                     existingScore = scoreService.create(request, studentId, (existingExamDetail.getExamId()));
                 }
+                int points = existingScore.getPoints();
+                int numberQuestions = existingScore.getNumberQuestions();
 
                 // si existe añade un punto si la respuesta es correcta, y siempre añade un punto al total de preguntas
                 if (alternative.getCheckedAlternative() == existingExamDetail.getCorrectOptionOrder()) {
                     alternative.setIsCorrect(true);
-                    existingScore.setPoints(existingScore.getPoints() + 1);
+                    points = points + 1;
                 }
-                existingScore.setNumberQuestions(existingScore.getNumberQuestions() + 1);
-
+                numberQuestions = numberQuestions + 1;
+                existingScore.setPoints(points);
+                existingScore.setNumberQuestions(numberQuestions);
+                existingScore.setFinalScore((Float.valueOf(points) / Float.valueOf(numberQuestions)) * BASE_SCORE);
                 scoreService.update(existingScore, existingScore.getId());
 
                 return alternativeStudentQuestionRepository.save(alternative);
