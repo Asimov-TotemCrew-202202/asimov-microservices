@@ -25,7 +25,7 @@ public class AlternativeStudentQuestionController {
         return mapper.toResource(alternativeStudentQuestionService.getById(id));
     }
 
-    @GetMapping("alternatives/students/{studentId}/examId/{examId}")
+    @GetMapping("alternatives/students/{studentId}/exams/{examId}")
     public List<AlternativeStudentQuestionResource> getByStudentIdAndExamId(@PathVariable Long studentId, @PathVariable Long examId) {
         return mapper.modelListToResource(alternativeStudentQuestionService.getByStudentIdAndExamId(studentId, examId));
     }

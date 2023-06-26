@@ -26,7 +26,7 @@ public class ScoresController {
         return mapper.toResource(scoreService.getById(id));
     }
 
-    @GetMapping("scores/students/{studentId}/examId/{examId}")
+    @GetMapping("scores/students/{studentId}/exams/{examId}")
     public ScoreResource getByStudentIdAndExamId(@PathVariable Long studentId, @PathVariable Long examId) {
         return mapper.toResource(scoreService.getByStudentIdAndExamId(studentId, examId));
     }
