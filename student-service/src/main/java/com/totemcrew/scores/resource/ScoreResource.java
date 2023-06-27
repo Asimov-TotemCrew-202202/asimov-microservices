@@ -10,6 +10,7 @@ public class ScoreResource {
     private int points;
     private float finalScore;
     private int numberQuestions;
+    private String topicName;
     private Long studentId;
     private Long examId;
 }

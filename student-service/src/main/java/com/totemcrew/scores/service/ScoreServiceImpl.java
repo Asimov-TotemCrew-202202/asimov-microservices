@@ -10,6 +10,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.totemcrew.alternative_student_question.client.ExamClient;
 import com.totemcrew.scores.domain.model.Score;
 import com.totemcrew.scores.domain.persistence.ScoreRepository;
 import com.totemcrew.scores.domain.service.ScoreService;
@@ -31,10 +32,17 @@ public class ScoreServiceImpl implements ScoreService {
     @Autowired
     StudentRepository studentRepository;
 
+    @Autowired
+    ExamClient examClient;
+
     @Override
     public Score getById(Long id) {
-        return scoreRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
+        var score = scoreRepository.findById(id);
+        if(score.isEmpty())
+            throw new ResourceNotFoundException(ENTITY, id);
+
+        score.get().setTopicName(examClient.getExamById(score.get().getExamId()).getTopic().getTitle());
+        return score.get();
     }
 
     @Override
@@ -43,7 +51,10 @@ public class ScoreServiceImpl implements ScoreService {
         if(existingStudent.isEmpty())
             throw new ResourceNotFoundException("Student", studentId);
 
-        return scoreRepository.findByStudentId(studentId);
+        var score = scoreRepository.findByStudentId(studentId);
+        score.forEach(s -> s.setTopicName(examClient.getExamById(s.getExamId()).getTopic().getTitle()));
+
+        return score;
     }
 
     @Override
@@ -51,6 +62,8 @@ public class ScoreServiceImpl implements ScoreService {
         var existingScore =  scoreRepository.findByStudentIdAndExamId(studentId, examId);
         if(existingScore == null)
             throw new ResourceNotFoundException(ENTITY, examId);
+
+        existingScore.setTopicName(examClient.getExamById(existingScore.getExamId()).getTopic().getTitle());
         return existingScore;
     }    
 

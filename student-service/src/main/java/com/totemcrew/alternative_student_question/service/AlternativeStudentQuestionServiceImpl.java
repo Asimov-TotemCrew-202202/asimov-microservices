@@ -9,7 +9,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.totemcrew.alternative_student_question.client.ExamDetailClient;
+import com.totemcrew.alternative_student_question.client.ExamClient;
 import com.totemcrew.alternative_student_question.domain.model.entity.AlternativeStudentQuestion;
 import com.totemcrew.alternative_student_question.domain.persistence.AlternativeStudentQuestionRepository;
 import com.totemcrew.alternative_student_question.domain.service.AlternativeStudentQuestionService;
@@ -33,7 +33,7 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
     private Validator validator;
 
     @Autowired
-    ExamDetailClient examDetailClient;
+    ExamClient examClient;
 
     @Autowired
     StudentRepository studentRepository;
@@ -65,7 +65,7 @@ public class AlternativeStudentQuestionServiceImpl implements AlternativeStudent
         if (!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        var existingExamDetail =  examDetailClient.getExamDetailById(examDetailId);
+        var existingExamDetail =  examClient.getExamDetailById(examDetailId);
         if (existingExamDetail == null) 
            throw new ResourceNotFoundException("Exam detail ", examDetailId);
 
