@@ -5,6 +5,7 @@ import com.totemcrew.exams.domain.service.ExamService;
 import com.totemcrew.exams.mapping.ExamDetailMapper;
 import com.totemcrew.exams.mapping.ExamMapper;
 import com.totemcrew.exams.resource.CreateExamResource;
+import com.totemcrew.exams.resource.ExamDetailResource;
 import com.totemcrew.exams.resource.ExamResource;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +28,17 @@ public class ExamsController {
     @GetMapping("topics/{topicId}/exams")
     public ExamResource getExamByTopicId(@PathVariable Long topicId) {
         var exam = mapper.toResource(examService.getExamByTopicId(topicId));
-        var examDetail = examDetailMapper.modelListToCreateResource(examDetailService.getAllByExamId(exam.getId()));
+        var examDetail = examDetailMapper.modelListToResource(examDetailService.getAllByExamId(exam.getId()));
         exam.setExamDetailResources(examDetail);
         return exam;
+  
         //return mapper.toResource(examService.getExamByTopicId(topicId));
+    }
+
+    @GetMapping("exams/examDetail/{id}")
+    public ExamDetailResource getExamDetailByIdAndExamId(@PathVariable Long id) {
+        var examDetail = examDetailMapper.modelToResource(examDetailService.getById(id));
+        return examDetail;
     }
 
     @PostMapping("topics/{topicId}/exams")
