@@ -1,10 +1,8 @@
-package com.totemcrew.topics.resource;
+package com.totemcrew.alternative_student_question.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class TopicResource {
     private Long id;
     private String title;

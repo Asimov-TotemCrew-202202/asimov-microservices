@@ -3,6 +3,7 @@ package com.totemcrew.exams.mapping;
 import com.totemcrew.exams.domain.model.entity.Exam;
 import com.totemcrew.exams.resource.CreateExamResource;
 import com.totemcrew.exams.resource.ExamResource;
+import com.totemcrew.exams.resource.ExamTopicResource;
 import com.totemcrew.exams.resource.UpdateExamResource;
 import com.totemcrew.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class ExamMapper {
 
     public ExamResource toResource(Exam model) {
         return mapper.map(model, ExamResource.class);
+    }
+
+    public ExamTopicResource toExamTopicResource(Exam model) {
+        return mapper.map(model, ExamTopicResource.class);
     }
 
     public Page<ExamResource> modelListToPage(List<Exam> modelList, Pageable pageable) {

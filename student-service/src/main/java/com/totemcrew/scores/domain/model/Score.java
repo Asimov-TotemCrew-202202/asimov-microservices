@@ -23,6 +23,9 @@ public class Score extends AuditModel {
     private float finalScore;
     private int numberQuestions;
 
+    @Transient
+    private String topicName;
+
     //relationships
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id", nullable = false)

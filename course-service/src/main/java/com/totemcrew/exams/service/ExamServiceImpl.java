@@ -3,6 +3,7 @@ package com.totemcrew.exams.service;
 import com.totemcrew.exams.domain.model.entity.Exam;
 import com.totemcrew.exams.domain.persistence.ExamRepository;
 import com.totemcrew.exams.domain.service.ExamService;
+import com.totemcrew.exams.resource.ExamTopicResource;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
 import com.totemcrew.topics.domain.persistence.TopicRepository;

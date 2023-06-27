@@ -1,13 +1,12 @@
 package com.totemcrew.exams.resource;
 
+import com.totemcrew.topics.resource.TopicResource;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class ExamResource {
+public class ExamTopicResource {
     private Long id;
-    List<ExamDetailResource> examDetailResources;
+    private TopicResource topic;
 }
