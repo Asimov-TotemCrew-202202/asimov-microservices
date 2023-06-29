@@ -7,5 +7,5 @@ RUN mvn -f /home/app/pom.xml clean package
 #Open jdk image
 FROM openjdk:17-jdk-alpine
 COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
-EXPOSE 8761
+EXPOSE 8010
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
