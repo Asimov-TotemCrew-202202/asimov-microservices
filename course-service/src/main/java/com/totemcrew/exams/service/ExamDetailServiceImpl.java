@@ -6,7 +6,6 @@ import com.totemcrew.exams.domain.persistence.ExamRepository;
 import com.totemcrew.exams.domain.service.ExamDetailService;
 import com.totemcrew.shared.exception.ResourceNotFoundException;
 import com.totemcrew.shared.exception.ResourceValidationException;
-import com.totemcrew.topics.domain.model.entity.Topic;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -35,6 +34,12 @@ public class ExamDetailServiceImpl implements ExamDetailService {
         if(existingExam.isEmpty())
             throw new ResourceNotFoundException("Exam",examId);
         return examDetailRepository.findByExamId(examId);
+    }
+
+    @Override
+    public ExamDetail getById(Long id) {
+        return examDetailRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
     }
 
     @Override

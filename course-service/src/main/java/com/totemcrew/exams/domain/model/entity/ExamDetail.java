@@ -23,7 +23,6 @@ public class ExamDetail {
 
     @NotNull
     @NotBlank
-    @Size(max = 120)
     private String question;
 
     @ElementCollection
