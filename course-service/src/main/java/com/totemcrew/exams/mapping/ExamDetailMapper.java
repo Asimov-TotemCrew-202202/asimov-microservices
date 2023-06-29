@@ -18,6 +18,10 @@ public class ExamDetailMapper {
         return mapper.mapList(modelList, ExamDetailResource.class);
     }
 
+    public ExamDetailResource modelToResource(ExamDetail resource) {
+        return mapper.map(resource, ExamDetailResource.class);
+    }
+
     public List<CreateExamDetailResource> modelListToCreateResource(List<ExamDetail> modelList) {
         return mapper.mapList(modelList, CreateExamDetailResource.class);
     }

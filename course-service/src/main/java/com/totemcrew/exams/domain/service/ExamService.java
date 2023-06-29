@@ -1,7 +1,7 @@
 package com.totemcrew.exams.domain.service;
 
 import com.totemcrew.exams.domain.model.entity.Exam;
-import com.totemcrew.topics.domain.model.entity.Topic;
+
 import org.springframework.http.ResponseEntity;
 
 public interface ExamService {

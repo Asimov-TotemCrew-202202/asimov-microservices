@@ -53,6 +53,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student getByUserId(Long userId) {
+        return studentRepository.findByUserId(userId);
+    }
+
+    @Override
     public Student create(Student student) {
         Set<ConstraintViolation<Student>> violations = validator.validate(student);
         if (!violations.isEmpty())

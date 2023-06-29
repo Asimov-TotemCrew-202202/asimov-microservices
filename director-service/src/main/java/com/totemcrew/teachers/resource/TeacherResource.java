@@ -11,4 +11,5 @@ public class TeacherResource {
     private String speciality;
     private double salary;
     private Long userId;
+    private Long principalId;
 }

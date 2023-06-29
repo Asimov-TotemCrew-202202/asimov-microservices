@@ -14,7 +14,6 @@ public class CreateExamDetailResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 120)
     private String question;
     private List<String> options;
     private int correctOptionOrder;

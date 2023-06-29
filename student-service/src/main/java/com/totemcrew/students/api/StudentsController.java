@@ -25,10 +25,15 @@ public class StudentsController {
         return mapper.modelListToResource(studentService.getAllBySectionId(sectionId));
     }
 
+    @GetMapping("/getByUser/{userId}")
+    public StudentResource getStudentByUserId(@PathVariable("userId") Long userId) {
+        return mapper.toResource(studentService.getByUserId(userId));
+    }
     @GetMapping("{studentId}")
     public StudentResource getStudentById(@PathVariable("studentId") Long studentId) {
         return mapper.toResource(studentService.getById(studentId));
     }
+    
     @PostMapping
     public StudentResource createStudent(@RequestBody CreateStudentResource request) {
         return mapper.toResource(studentService.create(mapper.toModel(request)));
