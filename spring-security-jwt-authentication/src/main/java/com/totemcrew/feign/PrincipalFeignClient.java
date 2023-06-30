@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "director-service", path = "/api/v1")
+@FeignClient(name = "director-service", url = "http://18.225.36.35:8020/api/v1")
 public interface PrincipalFeignClient {
 
     @PostMapping("principals")
