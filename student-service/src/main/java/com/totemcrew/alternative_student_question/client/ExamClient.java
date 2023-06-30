@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.totemcrew.alternative_student_question.model.ExamDetailResource;
 import com.totemcrew.alternative_student_question.model.ExamTopicResource;
 
-@FeignClient(name = "course-service", url = "http://13.59.217.223:8030/api/v1")
+@FeignClient(name = "course-service", url = "http://18.191.22.3:8040/api/v1")
 public interface ExamClient {
     @GetMapping("exams/{examId}") 
     public ExamTopicResource getExamById(@PathVariable Long examId);
